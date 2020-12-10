@@ -7,13 +7,15 @@ public class ProductManager {
     ProductRepository repository = new ProductRepository();
 
     public Product[] searchBy(String text) {
-        Product[] result = new Product[0];
+        Product[] result = new Product[repository.findAll().length];
+        int counter = -1;
         for (Product product: repository.findAll()) {
             if (matches(product, text)) {
-                Product[] tmp = new Product[result.length + 1];
-                tmp[tmp.length - 1] = product;
-                result = tmp;
-          //      System.arraycopy(tmp, 0, result, 0, tmp.length);
+                counter = counter + 1;
+                Product[] tmp = new Product[1];
+                tmp[0] = product;
+        //        result = tmp;
+                System.arraycopy(tmp, 0, result, counter, tmp.length);
             }
         }
         return result;
@@ -30,12 +32,18 @@ public class ProductManager {
             if (book.getName().equalsIgnoreCase(search)) {
                 return true;
             }
+            if (book.getAuthor().equalsIgnoreCase(search)) {
+                return true;
+            }
             return false;
         }
 
         if (product instanceof Smartphone) {
             Smartphone smartphone = (Smartphone) product;
             if (smartphone.getName().equalsIgnoreCase(search)) {
+                return true;
+            }
+            if (smartphone.getProducer().equalsIgnoreCase(search)) {
                 return true;
             }
             return false;

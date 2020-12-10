@@ -31,6 +31,23 @@ class ProductManagerTest {
     }
 
     @Test
+    void FindSomeBook() {
+        ProductManager manager = new ProductManager();
+        Book alphabet = new Book(123, "alphabet", 10, "noName");
+        Book fairyTales = new Book(124, "fairyTales", 20, "noName");
+        manager.addProduct(alphabet);
+        manager.addProduct(fairyTales);
+        Product[] actual = manager.searchBy("noName");
+
+        Product[] expected = new Product[2];
+        expected[0] = alphabet;
+        expected[1] = fairyTales;
+
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
     void FindSmartphone() {
         ProductManager manager = new ProductManager();
         Smartphone samsung = new Smartphone(123, "samsung", 10, "noName");
@@ -39,6 +56,23 @@ class ProductManagerTest {
 
         Product[] expected = new Product[1];
         expected[0] = samsung;
+
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    void FindSomeSmartphone() {
+        ProductManager manager = new ProductManager();
+        Smartphone samsung = new Smartphone(123, "samsung", 10, "noName");
+        Smartphone lg = new Smartphone(124, "lg", 100, "noName");
+        manager.addProduct(samsung);
+        manager.addProduct(lg);
+        Product[] actual = manager.searchBy("noName");
+
+        Product[] expected = new Product[2];
+        expected[0] = samsung;
+        expected[1] = lg;
 
         assertArrayEquals(expected, actual);
 
