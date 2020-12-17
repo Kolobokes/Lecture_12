@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.netology.domain.Product;
+import ru.netology.domain.NotFoundException;
 
 @Data
 @AllArgsConstructor
@@ -25,7 +26,22 @@ public class ProductRepository {
         return items;
     }
 
+    public boolean findByID(int ID) {
+        for (Product product: findAll()) {
+            int productID = product.getId();
+            if (productID == ID) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void removeById(int id) {
+
+        if (findByID(id) == false){
+            new NotFoundException("id not found");
+        }
+
         int length = items.length - 1;
         Product[] tmp = new Product[length];
         int index = 0;
