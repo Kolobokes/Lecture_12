@@ -39,7 +39,7 @@ public class ProductRepository {
     public void removeById(int id) {
 
         if (findByID(id) == false){
-            new NotFoundException("id not found");
+            new NotFoundException("Element with id: \" + id + \" not found");
         }
 
         int length = items.length - 1;
